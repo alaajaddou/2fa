@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>2FA Interaction</title>
+	<script src="functions.js"></script>
+	<style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            color: #343a40;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        section {
+            background: #ffffff;
+            border: 1px solid #e3e6ea;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        section h2 {
+            color: #17a2b8;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #17a2b8;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            transition-duration: 0.3s;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #138496;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        img {
+            margin-top: 10px;
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+        }
+	</style>
+
+</head>
+<body>
+<h1>2FA Interaction</h1>
+
+<div class="container">
+<section>
+	<h2>TOTP</h2>
+	<button onclick="generateTOTPSecret()">Generate TOTP Secret</button>
+	<br><br>
+	<input type="text" id="totp-secret" placeholder="TOTP Secret" readonly><br>
+	<input type="text" id="totp-token" placeholder="Enter TOTP Token"><br>
+	<button onclick="verifyTOTP()">Verify TOTP Token</button>
+</section>
+
+<section>
+	<h2>HOTP</h2>
+	<input type="number" id="hotp-counter" placeholder="Enter Counter"><br>
+	<button onclick="generateHOTPToken()">Generate HOTP Token</button>
+	<br><br>
+	<input type="text" id="hotp-secret" placeholder="HOTP Secret" readonly><br>
+	<input type="text" id="hotp-token" placeholder="Enter HOTP Token"><br>
+	<button onclick="verifyHOTP()">Verify HOTP Token</button>
+</section>
+
+<section>
+	<h2>QR Code</h2>
+	<button onclick="generateQRCode()">Generate QR Code</button>
+	<br><br>
+	<img id="qrcode-img" alt="QR Code"><br>
+	<input type="text" id="qrcode-secret" placeholder="QRCode Secret" readonly><br>
+	<input type="text" id="qrcode-totp-token" placeholder="Enter TOTP Token from QR Code"><br>
+	<button onclick="verifyQRCodeTOTP()">Verify QR Code TOTP Token</button>
+</section>
+</div>
+</body>
+</html>
