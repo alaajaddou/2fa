@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>2FA Interaction</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<script src="functions.js"></script>
 	<style>
         body {
@@ -79,6 +80,18 @@
             border-radius: 4px;
             border: 1px solid #ced4da;
         }
+
+        .verification-icon {
+            margin-left: 10px;
+        }
+
+        .verification-icon.fa-check {
+            color: green;
+        }
+
+        .verification-icon.fa-times {
+            color: red;
+        }
 	</style>
 
 </head>
@@ -91,7 +104,10 @@
 	<button onclick="generateTOTPSecret()">Generate TOTP Secret</button>
 	<br><br>
 	<input type="text" id="totp-secret" placeholder="TOTP Secret" readonly><br>
-	<input type="text" id="totp-token" placeholder="Enter TOTP Token"><br>
+	<input type="text" id="totp-token" placeholder="Enter TOTP Token">
+	<i id="totp-verification-icon" class="verification-icon fas"></i>
+	<label id="totp-verification-text"></label>
+	<br>
 	<button onclick="verifyTOTP()">Verify TOTP Token</button>
 </section>
 
@@ -101,7 +117,10 @@
 	<button onclick="generateHOTPToken()">Generate HOTP Token</button>
 	<br><br>
 	<input type="text" id="hotp-secret" placeholder="HOTP Secret" readonly><br>
-	<input type="text" id="hotp-token" placeholder="Enter HOTP Token"><br>
+	<input type="text" id="hotp-token" placeholder="Enter HOTP Token">
+	<i id="hotp-verification-icon" class="verification-icon fas"></i>
+	<label id="hotp-verification-text"></label>
+	<br>
 	<button onclick="verifyHOTP()">Verify HOTP Token</button>
 </section>
 
@@ -111,7 +130,10 @@
 	<br><br>
 	<img id="qrcode-img" alt="QR Code"><br>
 	<input type="text" id="qrcode-secret" placeholder="QRCode Secret" readonly><br>
-	<input type="text" id="qrcode-totp-token" placeholder="Enter TOTP Token from QR Code"><br>
+	<input type="text" id="qrcode-totp-token" placeholder="Enter TOTP Token from QR Code">
+	<i id="qrcode-verification-icon" class="verification-icon fas"></i>
+	<label id="qrcode-verification-text"></label>
+	<br>
 	<button onclick="verifyQRCodeTOTP()">Verify QR Code TOTP Token</button>
 </section>
 </div>

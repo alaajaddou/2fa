@@ -28,7 +28,11 @@ async function verifyTOTP() {
     body: JSON.stringify({ token, secret })
   });
   const { verified } = await response.json();
-  alert(`TOTP Verification: ${verified}`);
+  const text = document.getElementById('totp-verification-text');
+  text.innerHTML = verified ? 'Verification Success' : 'Verification Failed';
+
+  const icon = document.getElementById('totp-verification-icon');
+  icon.className = verified ? 'verification-icon fas fa-check' : 'verification-icon fas fa-times';
 }
 
 async function generateHOTPToken() {
@@ -48,7 +52,11 @@ async function verifyHOTP() {
     body: JSON.stringify({ token, secret, counter })
   });
   const { verified } = await response.json();
-  alert(`HOTP Verification: ${verified}`);
+  const text = document.getElementById('hotp-verification-text');
+  text.innerHTML = verified ? 'Verification Success' : 'Verification Failed';
+  const icon = document.getElementById('hotp-verification-icon');
+  icon.className = verified ? 'verification-icon fas fa-check' : 'verification-icon fas fa-times';
+  // alert(`HOTP Verification: ${verified}`);
 }
 
 async function generateQRCode() {
@@ -67,5 +75,9 @@ async function verifyQRCodeTOTP() {
     body: JSON.stringify({ token, secret })
   });
   const { verified } = await response.json();
-  alert(`QR Code TOTP Verification: ${verified}`);
+  const text = document.getElementById('qrcode-verification-text');
+  text.innerHTML = verified ? 'Verification Success' : 'Verification Failed';
+  const icon = document.getElementById('qrcode-verification-icon');
+  icon.className = verified ? 'verification-icon fas fa-check' : 'verification-icon fas fa-times';
+  // alert(`QR Code TOTP Verification: ${verified}`);
 }

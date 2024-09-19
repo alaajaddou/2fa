@@ -11,11 +11,15 @@ app.use(cors()); // Add this line to allow all origins
 app.use(express.json());
 
 // Helper functions
-const generateSecret = () => speakeasy.generateSecret({ length: 20 });
+const generateSecret = (name: string) => speakeasy.generateSecret({
+	length: 20,
+	name: `Bisan ${name}`,
+	otpauth_url: true
+});
 
 // TOTP Implementation
 app.get('/totp-generate', (req: Request, res: Response) => {
-	const secret = generateSecret();
+	const secret = generateSecret('Time-Based One-Time Password');
 	res.json({ secret: secret.base32 });
 });
 
@@ -29,13 +33,12 @@ app.post('/totp-verify', (req: Request, res: Response) => {
 		encoding: 'base32',
 		token
 	});
-	console.log('verified =>', verified)
 	res.json({ verified });
 });
 
 // HOTP Implementation
 app.post('/hotp-generate', (req: Request, res: Response) => {
-	const secret = generateSecret();
+	const secret = generateSecret('HMAC-Based One-Time Password');
 	const counter = req.body.counter;
 	const token = speakeasy.hotp({
 		secret: secret.base32,
@@ -66,7 +69,7 @@ app.post('/hotp-verify', (req: Request, res: Response) => {
 
 // QR Code Implementation
 app.get('/qrcode-generate', (req: Request, res: Response) => {
-	const secret = generateSecret();
+	const secret = generateSecret('QR Code Secret');
 	const otpauthURL = speakeasy.otpauthURL({
 		secret: secret.ascii,
 		label: 'My Service',
